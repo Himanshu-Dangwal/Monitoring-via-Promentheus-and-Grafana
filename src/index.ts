@@ -7,11 +7,14 @@ app.use(express.json());
 
 let users_route_req_counter = new Counter({
     name : "http_number_of_request_for_users_route",
-    help : "Counts no of requests in users route"
+    help : "Counts no of requests in users route",
+    labelNames : ["route"]
 })
 
 app.get("/users",(req,res)=>{
-    users_route_req_counter.inc();
+    users_route_req_counter.inc({
+        route : "/user"
+    });
     res.send({
         "username" : "Himanshu",
         "age":25
