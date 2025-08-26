@@ -17,11 +17,25 @@ const prom_client_1 = __importDefault(require("prom-client"));
 const prom_client_2 = require("prom-client");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+let activeUsersGauge = new prom_client_2.Gauge({
+    name: "http_requests_for_actie_users_requests",
+    help: "Counting number of active requests at the moment"
+});
 let users_route_req_counter = new prom_client_2.Counter({
     name: "http_number_of_request_for_users_route",
     help: "Counts no of requests in users route",
     labelNames: ["route"]
 });
+app.get("/active", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    activeUsersGauge.inc();
+    //Creating a delay to see the changes
+    yield new Promise(resolve => setTimeout(resolve, 10000));
+    res.status(301).send({
+        name: "himanshu",
+        age: "25"
+    });
+    activeUsersGauge.dec();
+}));
 app.get("/users", (req, res) => {
     users_route_req_counter.inc({
         route: "/user"
