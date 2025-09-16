@@ -23,7 +23,7 @@ app.get("/active",async (req,res)=>{
     await new Promise(resolve => setTimeout(resolve,10000));
 
     res.status(301).send({
-        name : "himanshu",
+        name : "himanshudangwal",
         age : "25"
     })
 
